@@ -1,7 +1,7 @@
 #include "apc.h"
 #include "addition.h"
 #include "subtraction.h"
-
+#include "multiplication.h"
 void insert_at_last(Dlist **head, Dlist **tail, int data)
 {
     Dlist *new = malloc(sizeof(Dlist));
@@ -70,6 +70,9 @@ int main(int argc, char *argv[])
             subtraction(head1, tail1, head2, tail2, &headR, &tailR);
             break;
 
+        case '*':
+            multiplication(head1, tail1, head2, tail2, &headR, &tailR);
+            break;
         default:
             printf("Invalid operator\n");
             return FAILURE;
