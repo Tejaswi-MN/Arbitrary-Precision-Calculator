@@ -8,6 +8,8 @@
 #define SUCCESS 1
 #define FAILURE 0
 
+int validation(int argc, char *argv[]);
+
 typedef struct node
 {
     int data;

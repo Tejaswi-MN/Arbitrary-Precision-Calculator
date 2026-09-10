@@ -2,6 +2,7 @@
 #include "addition.h"
 #include "subtraction.h"
 #include "multiplication.h"
+#include "division.h"
 void insert_at_last(Dlist **head, Dlist **tail, int data)
 {
     Dlist *new = malloc(sizeof(Dlist));
@@ -43,12 +44,16 @@ int main(int argc, char *argv[])
 
     Dlist *headR = NULL;
     Dlist *tailR = NULL;
-
-    if (argc != 4)
+    if (validation(argc, argv) == FAILURE)
     {
-        printf("Usage: ./apc number1 operator number2\n");
+        printf("Invalid input\n");
         return FAILURE;
     }
+    // if (argc != 4)
+    // {
+    //     printf("Usage: ./apc number1 operator number2\n");
+    //     return FAILURE;
+    // }
 
     for (int i = 0; argv[1][i] != '\0'; i++)
     {
@@ -70,9 +75,14 @@ int main(int argc, char *argv[])
             subtraction(head1, tail1, head2, tail2, &headR, &tailR);
             break;
 
-        case '*':
+        case 'x':
             multiplication(head1, tail1, head2, tail2, &headR, &tailR);
             break;
+
+        case '/':
+            division(head1, tail1, head2, tail2, &headR, &tailR);
+            break;
+
         default:
             printf("Invalid operator\n");
             return FAILURE;
