@@ -60,7 +60,7 @@ int multiplication(Dlist *head1, Dlist *tail1, Dlist *head2, Dlist *tail2, Dlist
             headT = new;
         }
 
-        /* Add zeros according to place value */
+       
         for (int i = 0; i < zero_count; i++)
         {
             Dlist *new = malloc(sizeof(Dlist));
@@ -76,7 +76,7 @@ int multiplication(Dlist *head1, Dlist *tail1, Dlist *head2, Dlist *tail2, Dlist
             tailT = new;
         }
 
-        /* First partial product */
+        
         if (*headR == NULL)
         {
             *headR = headT;

@@ -5,6 +5,12 @@ static int compare(Dlist *head1, Dlist *head2)
     int count1 = 0;
     int count2 = 0;
 
+    while (head1 != NULL && head1->data == 0 && head1->next != NULL)
+        head1 = head1->next;
+
+    while (head2 != NULL && head2->data == 0 && head2->next != NULL)
+        head2 = head2->next;
+
     Dlist *temp1 = head1;
     Dlist *temp2 = head2;
 
@@ -43,12 +49,15 @@ static int compare(Dlist *head1, Dlist *head2)
 
 static void remove_zeros(Dlist **head, Dlist **tail)
 {
-    while (*head != NULL && (*head)->data == 0 && (*head)->next != NULL)
+    while (*head != NULL &&
+           (*head)->data == 0 &&
+           (*head)->next != NULL)
     {
         Dlist *temp = *head;
 
         *head = (*head)->next;
         (*head)->prev = NULL;
+
         free(temp);
     }
 
@@ -58,22 +67,30 @@ static void remove_zeros(Dlist **head, Dlist **tail)
         *tail = (*tail)->next;
 }
 
-int subtraction(Dlist *head1, Dlist *tail1, Dlist *head2, Dlist *tail2, Dlist **headR, Dlist **tailR)
+int subtraction(Dlist *head1, Dlist *tail1,
+                Dlist *head2, Dlist *tail2,
+                Dlist **headR, Dlist **tailR)
 {
+    // printf("SUBTRACTION CALLED\n");
+
     int borrow = 0;
     int diff;
+    int negative = 0;
 
     *headR = NULL;
     *tailR = NULL;
 
-   
+    // printf("COMPARE = %d\n", compare(head1, head2));
     if (compare(head1, head2) == 0)
     {
+        negative = 1;
+
         Dlist *tempH = head1;
         Dlist *tempT = tail1;
 
         head1 = head2;
         tail1 = tail2;
+
         head2 = tempH;
         tail2 = tempT;
     }
@@ -122,6 +139,9 @@ int subtraction(Dlist *head1, Dlist *tail1, Dlist *head2, Dlist *tail2, Dlist **
     }
 
     remove_zeros(headR, tailR);
+
+    if (negative && (*headR)->data != 0)
+        printf("-");
 
     return SUCCESS;
 }
